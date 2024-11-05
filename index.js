@@ -1,3 +1,4 @@
+// Map of numbers (1-29)
 const numToWords = {
   1: 'one',
   2: 'two',
@@ -38,8 +39,7 @@ const getWordIndex = (int) => {
 
 
 const adjustToWords = (hours, minutes) => {
-
- 
+  // Handle quarter cases first
   if (minutes === 0){
     return `${getWordIndex(hours)} o'clock`
   }
@@ -53,26 +53,24 @@ const adjustToWords = (hours, minutes) => {
     return `quarter to ${getWordIndex(hours == 12 ? 1 : hours + 1)}`
   }
   
-
-  
+  // Handle general cases
   if (minutes < 30){
     return `${getWordIndex(minutes)} past ${getWordIndex(hours)}`
   }
   if (minutes > 30){
     return `${getWordIndex(60 - minutes)} to ${getWordIndex(hours == 12 ? 1 : hours + 1)}`
   }
-
 }
 
 
 
 function convertTimeToWords(time) {
-
+  // Parse hours and minutes from time string
   const timeSlice = time.split(':')
-
   const hours = parseInt(timeSlice[0])
   const minutes = parseInt(timeSlice[1])
 
+  // Input validation
   if (hours > 12){
     return '12 hours time format only'
   } 
@@ -83,18 +81,13 @@ function convertTimeToWords(time) {
     return 'Invalid time'
   }
 
-  if (minutes === 0){
-    return `${getWordIndex[hours]} o'clock`
-  }
-
+  // Handle special times
   if (hours === 0 && minutes === 0){
     return 'midnight'
   }
-  
   if (hours === 12 && minutes === 0){
     return 'midday'
   }
-
 
   return adjustToWords(hours, minutes);
 }
